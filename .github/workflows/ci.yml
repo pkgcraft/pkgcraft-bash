@@ -12,11 +12,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        rust-version: ['1.56.0', '1.58.0']
+        rust-version: ['1.60.0', 'stable']
 
     steps:
     - name: Checkout scallop
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: pkgcraft/scallop
         path: scallop
@@ -26,15 +26,18 @@ jobs:
       run: mv scallop ../
 
     - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        submodules: true
+      uses: actions/checkout@v3
 
-    - name: Update deps
-      run: cargo update
+    - name: Set up rust toolchain
+      uses: actions-rs/toolchain@v1
+      id: rust
+      with:
+        toolchain: ${{ matrix.rust-version }}
+        profile: minimal
+        override: true
 
     - name: Set up cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache
       with:
         path: |
@@ -42,18 +45,12 @@ jobs:
           ~/.cargo/registry/index
           ~/.cargo/registry/cache
           ~/.cargo/git/db
-          ~/.rustup
           target
-        key: v1-${{ github.job }}-${{ runner.os }}-rust-${{ matrix.rust-version }}-bash-${{ hashFiles('.git/modules/bash/refs/heads/main') }}-cargo-${{ hashFiles('Cargo.lock') }}
-        restore-keys: v1-${{ github.job }}-${{ runner.os }}-rust-${{ matrix.rust-version }}-bash-${{ hashFiles('.git/modules/bash/refs/heads/main') }}-cargo-
+        key: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-${{ hashFiles('Cargo.lock') }}
+        restore-keys: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
 
-    - name: Set up rust toolchain ${{ matrix.rust-version }}
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: ${{ matrix.rust-version }}
-        profile: minimal
-        override: true
-        components: rustfmt
+    - name: Update deps
+      run: cargo update
 
     - name: Install meson
       run: sudo pip3 install meson
