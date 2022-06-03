@@ -1,14 +1,14 @@
 [package]
-name = "scallop-builtins"
+name = "pkgcraft-bash"
 version = "0.0.1"
-description = "Various builtins for bash"
+description = "Bash builtins for pkgcraft"
 authors = ["Tim Harder <radhermit@gmail.com>"]
-homepage = "https://github.com/pkgcraft/scallop"
-repository = "https://github.com/pkgcraft/scallop"
+homepage = "https://github.com/pkgcraft/pkgcraft-bash"
+repository = "https://github.com/pkgcraft/pkgcraft-bash"
 readme = "README.md"
 license = "GPL-3"
 edition = "2021"
-rust-version = "1.56"
+rust-version = "1.60"
 autotests = false
 
 [lib]
