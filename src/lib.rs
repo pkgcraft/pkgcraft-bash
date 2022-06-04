@@ -54,7 +54,6 @@ static mut PROFILE_STRUCT: Option<Builtin> = None;
     link_section = ".init_array"
 )]
 #[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
-#[cfg_attr(target_os = "windows", link_section = ".CRT$XCU")]
 static INITIALIZE_BUILTINS: extern "C" fn() = initialize_builtins;
 
 #[no_mangle]
