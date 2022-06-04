@@ -42,14 +42,19 @@ impl From<builtins::Builtin> for Builtin {
 #[export_name = "profile_struct"]
 static mut PROFILE_STRUCT: Option<Builtin> = None;
 
-#[cfg(target_os = "linux")]
 #[used]
-#[link_section = ".init_array"]
-static INITIALIZE_BUILTINS: extern "C" fn() = initialize_builtins;
-
-#[cfg(target_os = "macos")]
-#[used]
-#[link_section = "__DATA,__mod_init_func"]
+#[cfg_attr(
+    any(
+        target_os = "linux",
+        target_os = "android",
+        target_os = "freebsd",
+        target_os = "netbsd",
+        target_os = "openbsd"
+    ),
+    link_section = ".init_array"
+)]
+#[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
+#[cfg_attr(target_os = "windows", link_section = ".CRT$XCU")]
 static INITIALIZE_BUILTINS: extern "C" fn() = initialize_builtins;
 
 #[no_mangle]
