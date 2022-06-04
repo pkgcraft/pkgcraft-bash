@@ -25,6 +25,15 @@ jobs:
     - name: Move scallop into expected location
       run: mv scallop ../
 
+    - name: Checkout pkgcraft
+      uses: actions/checkout@v3
+      with:
+        repository: pkgcraft/pkgcraft
+        path: pkgcraft
+
+    - name: Move pkgcraft into expected location
+      run: mv pkgcraft ../
+
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -66,4 +75,4 @@ jobs:
         echo "CFLAGS=-arch x86_64" >> $GITHUB_ENV
 
     - name: Build builtins
-      run: cargo build -vv
+      run: cargo build --all-features
