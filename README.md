@@ -28,5 +28,5 @@ cargo build
 # allow the linker to find the scallop library
 export LD_LIBRARY_PATH=target/debug/meson
 # load the profile plugin and run it
-bash -c "enable -f ./target/debug/libpkgcraft_bash.so profile && profile echo 1"
+bash -c "enable -f ./target/debug/libpkgcraft_bash.so profile && profile sleep 3"
 ```
