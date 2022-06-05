@@ -6,7 +6,7 @@ use scallop::builtins::{declare, Builtin, ExecStatus};
 use scallop::variables::unbind;
 use scallop::{Error, Result};
 
-static LONG_DOC: &str = "Parse an atom into an associative array.";
+static LONG_DOC: &str = "Parse an atom into the $ATOM associative array.";
 
 #[doc = stringify!(LONG_DOC)]
 pub(crate) fn run(args: &[&str]) -> Result<ExecStatus> {
@@ -31,6 +31,7 @@ pub(crate) fn run(args: &[&str]) -> Result<ExecStatus> {
     .join(" ");
 
     unbind("ATOM")?;
+    // TODO: natively assign to associative array instead of using `declare`
     declare(&["-A", &format!("ATOM=( {attr_map} )")])?;
 
     Ok(ExecStatus::Success)
