@@ -19,14 +19,15 @@ To build pkgcraft-bash, run the following commands:
 
 ```bash
 git clone --recurse-submodules https://github.com/pkgcraft/scallop.git
+git clone https://github.com/pkgcraft/pkgcraft.git
 git clone https://github.com/pkgcraft/pkgcraft-bash.git
 
 # build the pkgcraft-bash plugins
 cd pkgcraft-bash
-cargo build
+cargo build --features pkgcraft
 
 # allow the linker to find the scallop library
 export LD_LIBRARY_PATH=target/debug/meson
 # load the profile plugin and run it
-bash -c "enable -f ./target/debug/libpkgcraft_bash.so profile && profile sleep 1"
+bash -c "enable -f ./target/debug/libpkgcraft_bash.so atom profile && profile atom '=cat/pkg-1-r2:3/4'"
 ```
