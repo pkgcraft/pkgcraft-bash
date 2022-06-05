@@ -23,10 +23,11 @@ pub(crate) fn run(args: &[&str]) -> Result<ExecStatus> {
         ("revision", a.revision().map(|v| v.as_str()).unwrap_or("")),
         ("slot", a.slot().unwrap_or("")),
         ("subslot", a.subslot().unwrap_or("")),
+        ("use", &a.use_deps().map(|v| v.join(" ")).unwrap_or_else(|| "".into())),
         ("repo", a.repo().unwrap_or("")),
     ]
     .iter()
-    .map(|(k, v)| format!("[{k}]={v}"))
+    .map(|(k, v)| format!("[{k}]=\"{v}\""))
     .join(" ");
 
     unbind("ATOM")?;
