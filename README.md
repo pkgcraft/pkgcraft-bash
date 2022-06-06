@@ -8,6 +8,10 @@ Various rust-based bash plugins leveraging scallop and pkgcraft.
 
 - **profile**: benchmark bash functions
 
+### Pkgcraft
+
+- **atom**: simple atom parsing
+
 ## Development
 
 Developing pkgcraft-bash assumes that recent versions of meson and bash are
