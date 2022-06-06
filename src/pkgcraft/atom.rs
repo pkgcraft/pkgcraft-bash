@@ -9,7 +9,7 @@ use scallop::{Error, Result};
 static LONG_DOC: &str = "Parse an atom into the $ATOM associative array.";
 
 #[doc = stringify!(LONG_DOC)]
-pub(crate) fn run(args: &[&str]) -> Result<ExecStatus> {
+fn run(args: &[&str]) -> Result<ExecStatus> {
     let s = match args.len() {
         1 => args[0],
         n => return Err(Error::Builtin(format!("requires 1 arg, got {n}"))),
