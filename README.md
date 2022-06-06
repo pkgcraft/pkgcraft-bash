@@ -26,12 +26,12 @@ git clone --recurse-submodules https://github.com/pkgcraft/scallop.git
 git clone https://github.com/pkgcraft/pkgcraft.git
 git clone https://github.com/pkgcraft/pkgcraft-bash.git
 
-# build the pkgcraft-bash plugins
+# build the plugins with pkgcraft support enabled
 cd pkgcraft-bash
 cargo build --features pkgcraft
 
 # allow the linker to find the scallop library
 export LD_LIBRARY_PATH=target/debug/meson
-# load the profile plugin and run it
+# load the plugins and profile the atom plugin
 bash -c "enable -f ./target/debug/libpkgcraft_bash.so atom profile && profile atom '=cat/pkg-1-r2:3/4'"
 ```
