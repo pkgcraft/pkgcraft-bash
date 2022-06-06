@@ -74,19 +74,15 @@ extern "C" fn initialize_builtins() {
     update_run_map([&profile::BUILTIN]);
 
     #[cfg(feature = "pkgcraft")]
-    initialize_pkgcraft_builtins();
-}
+    {
+        use crate::pkgcraft::*;
 
-#[cfg(feature = "pkgcraft")]
-#[no_mangle]
-extern "C" fn initialize_pkgcraft_builtins() {
-    use crate::pkgcraft::*;
+        // update struct pointers
+        unsafe {
+            atom::ATOM_STRUCT = Some(atom::BUILTIN.into());
+        }
 
-    // update struct pointers
-    unsafe {
-        ATOM_STRUCT = Some(atom::BUILTIN.into());
+        // add builtins to known run() mapping
+        update_run_map([&atom::BUILTIN]);
     }
-
-    // add builtins to known run() mapping
-    update_run_map([&atom::BUILTIN]);
 }
