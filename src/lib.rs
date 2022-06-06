@@ -42,10 +42,6 @@ impl From<ScallopBuiltin> for Builtin {
     }
 }
 
-#[cfg(feature = "pkgcraft")]
-#[export_name = "atom_struct"]
-static mut ATOM_STRUCT: Option<Builtin> = None;
-
 #[export_name = "profile_struct"]
 static mut PROFILE_STRUCT: Option<Builtin> = None;
 

@@ -37,7 +37,10 @@ pub(crate) fn run(args: &[&str]) -> Result<ExecStatus> {
     Ok(ExecStatus::Success)
 }
 
-pub static BUILTIN: Builtin = Builtin {
+#[export_name = "atom_struct"]
+pub(crate) static mut ATOM_STRUCT: Option<crate::Builtin> = None;
+
+pub(crate) static BUILTIN: Builtin = Builtin {
     name: "atom",
     func: run,
     help: LONG_DOC,
