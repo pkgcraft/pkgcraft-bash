@@ -38,7 +38,7 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
 }
 
 #[export_name = "atom_struct"]
-pub(crate) static mut ATOM_STRUCT: Option<crate::Builtin> = None;
+pub(crate) static mut ATOM_STRUCT: Option<crate::core::Builtin> = None;
 
 pub(crate) static BUILTIN: Builtin = Builtin {
     name: "atom",
