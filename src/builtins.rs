@@ -1,9 +1,8 @@
 use std::os::raw::{c_char, c_int};
 
-use scallop::bash;
-use scallop::builtins::Builtin as ScallopBuiltin;
+mod atom;
 
-type BuiltinFnPtr = unsafe extern "C" fn(list: *mut bash::WordList) -> c_int;
+type BuiltinFnPtr = unsafe extern "C" fn(list: *mut scallop::bash::WordList) -> c_int;
 
 // Manually define builtin struct since bindgen doesn't support non-null function pointers yet.
 // Wrapping the function pointer field member in Option<fn> causes bash to segfault when loading
@@ -12,7 +11,7 @@ type BuiltinFnPtr = unsafe extern "C" fn(list: *mut bash::WordList) -> c_int;
 // Related upstream issue: https://github.com/rust-lang/rust-bindgen/issues/1278
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub(super) struct Builtin {
+pub(self) struct Builtin {
     name: *const c_char,
     function: BuiltinFnPtr,
     flags: c_int,
@@ -22,10 +21,10 @@ pub(super) struct Builtin {
 }
 
 /// Convert a Builtin to its C equivalent.
-impl From<ScallopBuiltin> for Builtin {
-    fn from(b: ScallopBuiltin) -> Self {
+impl From<scallop::builtins::Builtin> for Builtin {
+    fn from(b: scallop::builtins::Builtin) -> Self {
         // first convert to the Option wrapped variant
-        let b: bash::Builtin = b.into();
+        let b: scallop::bash::Builtin = b.into();
 
         // then convert to the non-Option wrapped variant
         Builtin {
@@ -43,7 +42,7 @@ impl From<ScallopBuiltin> for Builtin {
 static mut PROFILE_STRUCT: Option<Builtin> = None;
 
 #[no_mangle]
-pub(super) extern "C" fn initialize_builtins() {
+pub(super) extern "C" fn initialize() {
     use scallop::builtins::{profile, update_run_map};
 
     // update struct pointers
@@ -56,8 +55,6 @@ pub(super) extern "C" fn initialize_builtins() {
 
     #[cfg(feature = "pkgcraft")]
     {
-        use crate::pkgcraft::*;
-
         // update struct pointers
         unsafe {
             atom::ATOM_STRUCT = Some(atom::BUILTIN.into());

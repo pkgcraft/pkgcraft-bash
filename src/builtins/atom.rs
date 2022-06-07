@@ -1,3 +1,4 @@
+#![cfg(feature = "pkgcraft")]
 use std::str::FromStr;
 
 use itertools::Itertools;
@@ -38,9 +39,9 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
 }
 
 #[export_name = "atom_struct"]
-pub(crate) static mut ATOM_STRUCT: Option<crate::core::Builtin> = None;
+pub(super) static mut ATOM_STRUCT: Option<super::Builtin> = None;
 
-pub(crate) static BUILTIN: Builtin = Builtin {
+pub(super) static BUILTIN: Builtin = Builtin {
     name: "atom",
     func: run,
     help: LONG_DOC,
