@@ -3,7 +3,7 @@ use std::str::FromStr;
 
 use itertools::Itertools;
 use pkgcraft::atom::Atom;
-use scallop::builtins::{declare, Builtin, ExecStatus};
+use scallop::builtins::{declare, Builtin, ExecStatus, Plugin};
 use scallop::variables::unbind;
 use scallop::{Error, Result};
 
@@ -39,7 +39,7 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
 }
 
 #[export_name = "atom_struct"]
-pub(super) static mut ATOM_STRUCT: Option<super::Builtin> = None;
+pub(super) static mut ATOM_STRUCT: Option<Plugin> = None;
 
 pub(super) static BUILTIN: Builtin = Builtin {
     name: "atom",
