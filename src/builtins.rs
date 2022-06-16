@@ -1,9 +1,9 @@
-use scallop::builtins::Plugin;
+use scallop::builtins::DynBuiltin;
 
 mod atom;
 
 #[export_name = "profile_struct"]
-static mut PROFILE_STRUCT: Option<Plugin> = None;
+static mut PROFILE_STRUCT: Option<DynBuiltin> = None;
 
 #[no_mangle]
 pub(super) extern "C" fn initialize() {
