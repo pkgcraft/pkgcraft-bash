@@ -1,3 +1,4 @@
+use ctor::ctor;
 use scallop::builtins::DynBuiltin;
 
 mod atom;
@@ -5,8 +6,8 @@ mod atom;
 #[export_name = "profile_struct"]
 static mut PROFILE_STRUCT: Option<DynBuiltin> = None;
 
-#[no_mangle]
-pub(super) extern "C" fn initialize() {
+#[ctor]
+fn initialize() {
     use scallop::builtins::{profile, update_run_map};
 
     // update struct pointers
