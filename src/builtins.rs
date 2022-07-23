@@ -16,7 +16,7 @@ fn initialize() {
     }
 
     // add builtins to known run() mapping
-    update_run_map([&profile::BUILTIN]);
+    update_run_map(&[profile::BUILTIN]);
 
     #[cfg(feature = "pkgcraft")]
     {
@@ -26,6 +26,6 @@ fn initialize() {
         }
 
         // add builtins to known run() mapping
-        update_run_map([&atom::BUILTIN]);
+        update_run_map(&[atom::BUILTIN]);
     }
 }
