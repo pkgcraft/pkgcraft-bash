@@ -50,14 +50,8 @@ jobs:
           ~/.cargo/registry/cache
           ~/.cargo/git/db
           target
-        key: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-${{ hashFiles('Cargo.lock') }}
-        restore-keys: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
-
-    - name: Install meson
-      run: sudo pip3 install meson
-
-    - name: Install ninja
-      uses: seanmiddleditch/gha-setup-ninja@master
+        key: v3-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-${{ hashFiles('Cargo.lock') }}
+        restore-keys: v3-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
 
     - name: Various macos set up
       if: matrix.os == 'macos-latest'
@@ -65,6 +59,8 @@ jobs:
         # force using clang as a C compiler
         echo "CC=clang" >> $GITHUB_ENV
         echo "CFLAGS=-arch x86_64" >> $GITHUB_ENV
+        # install newer bash -- macos defaults to ancient bash due to licensing
+        brew install bash
 
     - name: Build builtins
       run: |
@@ -72,6 +68,20 @@ jobs:
         cargo build -p ${{ github.event.repository.name }}
         # then with all features enabled
         cargo build --all-features -p ${{ github.event.repository.name }}
+        # export variables required to run tests
+        echo "CARGO_BUILD_DIR=${PWD}/target/debug" >> $GITHUB_ENV
+
+    - name: Output bash info
+      run: bash --version
+
+    - name: Install bats test framework
+      uses: mig4/setup-bats@v1
+      with:
+        bats-version: 1.7.0
+
+    - name: Run tests
+      working-directory: ${{ github.event.repository.name }}
+      run: bats -r tests
 
   lint:
     runs-on: ubuntu-latest
