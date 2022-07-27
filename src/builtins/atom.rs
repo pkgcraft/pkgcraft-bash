@@ -3,7 +3,7 @@ use std::str::FromStr;
 
 use itertools::Itertools;
 use pkgcraft::atom::Atom;
-use scallop::builtins::{declare, Builtin, DynBuiltin, ExecStatus};
+use scallop::builtins::{declare, make_builtin, DynBuiltin, ExecStatus};
 use scallop::variables::unbind;
 use scallop::{Error, Result};
 
@@ -41,9 +41,4 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
 #[export_name = "atom_struct"]
 pub(super) static mut ATOM_STRUCT: Option<DynBuiltin> = None;
 
-pub(super) static BUILTIN: Builtin = Builtin {
-    name: "atom",
-    func: run,
-    help: LONG_DOC,
-    usage: "atom \">=cat/pkg-1:2/3[use]::repo\"",
-};
+make_builtin!("atom", atom_builtin, run, LONG_DOC, "atom \">=cat/pkg-1:2/3[use]::repo\"");

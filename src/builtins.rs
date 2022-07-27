@@ -8,15 +8,12 @@ static mut PROFILE_STRUCT: Option<DynBuiltin> = None;
 
 #[ctor]
 fn initialize() {
-    use scallop::builtins::{profile, update_run_map};
+    use scallop::builtins::profile;
 
     // update struct pointers
     unsafe {
         PROFILE_STRUCT = Some(profile::BUILTIN.into());
     }
-
-    // add builtins to known run() mapping
-    update_run_map(&[profile::BUILTIN]);
 
     #[cfg(feature = "pkgcraft")]
     {
@@ -24,8 +21,5 @@ fn initialize() {
         unsafe {
             atom::ATOM_STRUCT = Some(atom::BUILTIN.into());
         }
-
-        // add builtins to known run() mapping
-        update_run_map(&[atom::BUILTIN]);
     }
 }
