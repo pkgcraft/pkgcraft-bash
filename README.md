@@ -14,8 +14,10 @@ Various rust-based bash builtins leveraging scallop and pkgcraft.
 
 ## Development
 
-Requirements: meson, bash, and everything required to build
-[pkgcraft](https://github.com/pkgcraft/pkgcraft)
+Requirements: bash, [bats](https://github.com/bats-core/bats-core) (for
+testing), and everything required to build
+[pkgcraft](https://github.com/pkgcraft/pkgcraft) if the related feature is
+enabled
 
 Use the following commands to set up a dev environment:
 
@@ -27,6 +29,6 @@ cd pkgcraft-workspace
 # build pkgcraft-bash with pkgcraft support enabled
 cargo build --features pkgcraft -p pkgcraft-bash
 
-# load the builtins and profile the atom builtin
-bash -c "enable -f ./target/debug/libpkgcraft_bash.so atom profile && profile atom '=cat/pkg-1-r2:3/4'"
+# run tests via bats
+bats -r pkgcraft-bash/tests
 ```
