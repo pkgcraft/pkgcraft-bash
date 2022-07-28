@@ -14,7 +14,7 @@ Various rust-based bash builtins leveraging scallop and pkgcraft.
 
 ## Development
 
-Requirements: bash, [bats](https://github.com/bats-core/bats-core) (for
+Requirements: >=bash-5, [bats](https://github.com/bats-core/bats-core) (for
 testing), and everything required to build
 [pkgcraft](https://github.com/pkgcraft/pkgcraft) if the related feature is
 enabled
