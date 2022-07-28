@@ -20,12 +20,12 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
     let attr_map: String = [
         ("category", a.category()),
         ("package", a.package()),
-        ("version", a.version().map(|v| v.as_str()).unwrap_or("")),
-        ("revision", a.revision().map(|v| v.as_str()).unwrap_or("")),
-        ("slot", a.slot().unwrap_or("")),
-        ("subslot", a.subslot().unwrap_or("")),
-        ("use", &a.use_deps().map(|v| v.join(" ")).unwrap_or_else(|| "".into())),
-        ("repo", a.repo().unwrap_or("")),
+        ("version", a.version().map(|v| v.as_str()).unwrap_or_default()),
+        ("revision", a.revision().map(|v| v.as_str()).unwrap_or_default()),
+        ("slot", a.slot().unwrap_or_default()),
+        ("subslot", a.subslot().unwrap_or_default()),
+        ("use", &a.use_deps().map(|v| v.join(" ")).unwrap_or_default()),
+        ("repo", a.repo().unwrap_or_default()),
     ]
     .iter()
     .map(|(k, v)| format!("[{k}]=\"{v}\""))
