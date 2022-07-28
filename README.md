@@ -24,9 +24,6 @@ Use the following commands to set up a dev environment:
 git clone --recurse-submodules https://github.com/pkgcraft/pkgcraft-workspace.git
 cd pkgcraft-workspace
 
-# build shared library for scallop and set shell variables (e.g. $LD_LIBRARY_PATH)
-source ./build scallop
-
 # build pkgcraft-bash with pkgcraft support enabled
 cargo build --features pkgcraft -p pkgcraft-bash
 
