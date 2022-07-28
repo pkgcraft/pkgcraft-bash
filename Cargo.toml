@@ -11,6 +11,8 @@ edition = "2021"
 rust-version = "1.60"
 autotests = false
 
+# split into separate libs if cargo ever gets native plugin building support
+# https://github.com/rust-lang/cargo/issues/8628
 [lib]
 crate-type = ["cdylib"]
 
