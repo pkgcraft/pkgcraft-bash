@@ -13,7 +13,7 @@ static LONG_DOC: &str = "Parse an atom into the $ATOM associative array.";
 fn run(args: &[&str]) -> Result<ExecStatus> {
     let s = match args.len() {
         1 => args[0],
-        n => return Err(Error::Builtin(format!("requires 1 arg, got {n}"))),
+        n => return Err(Error::Base(format!("requires 1 arg, got {n}"))),
     };
 
     let a = Atom::from_str(s)?;
