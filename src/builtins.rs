@@ -10,14 +10,12 @@ static mut PROFILE_STRUCT: Option<DynBuiltin> = None;
 fn initialize() {
     use scallop::builtins::profile;
 
-    // update struct pointers
     unsafe {
         PROFILE_STRUCT = Some(profile::BUILTIN.into());
     }
 
     #[cfg(feature = "pkgcraft")]
     {
-        // update struct pointers
         unsafe {
             atom::ATOM_STRUCT = Some(atom::BUILTIN.into());
         }
