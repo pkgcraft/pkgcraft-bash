@@ -24,7 +24,7 @@ fn run(args: &[&str]) -> Result<ExecStatus> {
         ("revision", a.revision().map(|v| v.as_str()).unwrap_or_default()),
         ("slot", a.slot().unwrap_or_default()),
         ("subslot", a.subslot().unwrap_or_default()),
-        ("use", &a.use_deps().map(|v| v.join(" ")).unwrap_or_default()),
+        ("use", &a.use_deps().map(|v| v.iter().join(" ")).unwrap_or_default()),
         ("repo", a.repo().unwrap_or_default()),
     ]
     .iter()
