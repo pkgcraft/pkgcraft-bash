@@ -1,6 +1,7 @@
 # pkgcraft-bash
 
-Various rust-based bash builtins leveraging scallop and pkgcraft.
+Various bash builtins leveraging [scallop](https://github.com/pkgcraft/scallop)
+and [pkgcraft](https://github.com/pkgcraft/pkgcraft).
 
 ## Builtins
 
