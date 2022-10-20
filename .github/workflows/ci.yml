@@ -54,7 +54,7 @@ jobs:
         restore-keys: v3-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
 
     - name: Various macos set up
-      if: matrix.os == 'macos-latest'
+      if: runner.os == 'macOS'
       run: |
         # force using clang as a C compiler
         echo "CC=clang" >> $GITHUB_ENV
