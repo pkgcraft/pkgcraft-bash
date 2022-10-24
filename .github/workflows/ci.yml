@@ -33,14 +33,12 @@ jobs:
         path: ${{ github.event.repository.name }}
 
     - name: Set up rust toolchain
-      uses: actions-rs/toolchain@v1
+      uses: dtolnay/rust-toolchain@master
       id: rust
       with:
         toolchain: ${{ matrix.rust-version }}
-        profile: minimal
-        override: true
 
-    - name: Set up cache
+    - name: Set up rust cache
       uses: actions/cache@v3
       id: cache
       with:
@@ -50,8 +48,8 @@ jobs:
           ~/.cargo/registry/cache
           ~/.cargo/git/db
           target
-        key: v3-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-${{ hashFiles('Cargo.lock') }}
-        restore-keys: v3-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
+        key: v4-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}
+        restore-keys: v4-${{ github.job }}-${{ runner.os }}-rust-
 
     - name: Various macos set up
       if: runner.os == 'macOS'
@@ -104,12 +102,9 @@ jobs:
         path: ${{ github.event.repository.name }}
 
     - name: Set up rust toolchain
-      uses: actions-rs/toolchain@v1
+      uses: dtolnay/rust-toolchain@stable
       id: rust
       with:
-        toolchain: stable
-        profile: minimal
-        override: true
         components: clippy, rustfmt
 
     - name: Set up rust cache
@@ -122,17 +117,11 @@ jobs:
           ~/.cargo/registry/cache
           ~/.cargo/git/db
           target
-        key: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-${{ hashFiles('Cargo.lock') }}
-        restore-keys: v2-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.rustc_hash }}-cargo-
+        key: v4-${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}
+        restore-keys: v4-${{ github.job }}-${{ runner.os }}-rust-
 
     - name: Run rustfmt
       run: cargo fmt --check -p ${{ github.event.repository.name }}
-
-    - name: Install meson
-      run: sudo pip3 install meson
-
-    - name: Install ninja
-      uses: seanmiddleditch/gha-setup-ninja@master
 
     - name: Run clippy
       uses: actions-rs/clippy-check@v1
