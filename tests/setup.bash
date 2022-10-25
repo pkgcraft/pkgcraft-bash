@@ -1,4 +1,6 @@
-ALL_BUILTINS=( atom profile )
+bats_require_minimum_version 1.7.0
+
+ALL_BUILTINS=( atom atom_version profile )
 if [[ ${OSTYPE} == "darwin"* ]]; then
 	OBJ_EXT="dylib"
 else

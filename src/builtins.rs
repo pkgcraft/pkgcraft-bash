@@ -2,6 +2,7 @@ use ctor::ctor;
 use scallop::builtins::DynBuiltin;
 
 mod atom;
+mod atom_version;
 
 #[export_name = "profile_struct"]
 static mut PROFILE_STRUCT: Option<DynBuiltin> = None;
@@ -18,6 +19,7 @@ fn initialize() {
     {
         unsafe {
             atom::ATOM_STRUCT = Some(atom::BUILTIN.into());
+            atom_version::ATOM_VERSION_STRUCT = Some(atom_version::BUILTIN.into());
         }
     }
 }
