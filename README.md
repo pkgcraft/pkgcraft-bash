@@ -12,6 +12,7 @@ and [pkgcraft](https://github.com/pkgcraft/pkgcraft).
 ### Pkgcraft
 
 - **atom**: simple atom parsing
+- **atom_version**: compare package versions
 
 ## Development
 
