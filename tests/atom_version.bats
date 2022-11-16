@@ -15,9 +15,9 @@ load setup
 
 	# invalid versions
 	run -1 atom_version "1.2.a < 1.2.4"
-	[[ "${lines[0]}" == 'atom_version: error: parsing failure: invalid version: "1.2.a"' ]]
+	[[ "${lines[0]}" == 'atom_version: error: parsing failure: invalid version: 1.2.a' ]]
 	run -1 atom_version "1.2.3 < 1.2.b"
-	[[ "${lines[0]}" == 'atom_version: error: parsing failure: invalid version: "1.2.b"' ]]
+	[[ "${lines[0]}" == 'atom_version: error: parsing failure: invalid version: 1.2.b' ]]
 
 	# invalid operator
 	run -1 atom_version "1.2.3 -gt 1.2.1"

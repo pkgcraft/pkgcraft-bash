@@ -3,7 +3,7 @@ load setup
 @test "test atom failure" {
 	run atom cat/pkg-1
 	[[ "$status" -eq 1 ]]
-	[[ "${lines[0]}" == 'atom: error: parsing failure: invalid atom: "cat/pkg-1"' ]]
+	[[ "${lines[0]}" == 'atom: error: parsing failure: invalid atom: cat/pkg-1' ]]
 }
 
 @test "test atom simple" {
