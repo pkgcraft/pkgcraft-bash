@@ -1,6 +1,6 @@
 [package]
 name = "pkgcraft-bash"
-version = "0.0.2"
+version = "0.0.3"
 description = "Bash builtins for pkgcraft"
 authors = ["Tim Harder <radhermit@gmail.com>"]
 homepage = "https://github.com/pkgcraft/pkgcraft-bash"
@@ -21,6 +21,6 @@ pkgcraft = ["dep:pkgcraft", "dep:itertools"]
 
 [dependencies]
 ctor = "0.1.22"
-scallop = { path = "../scallop", version = "0.0.2", features = ["plugin"] }
-pkgcraft = { path = "../pkgcraft", version = "0.0.3", default-features = false, optional = true }
+scallop = { path = "../scallop", version = "0.0.3", features = ["plugin"] }
+pkgcraft = { path = "../pkgcraft", version = "0.0.4", default-features = false, optional = true }
 itertools = { version = "0.10.3", optional = true }
