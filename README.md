@@ -16,10 +16,8 @@ and [pkgcraft](https://github.com/pkgcraft/pkgcraft).
 
 ## Development
 
-Requirements: >=bash-5, [bats](https://github.com/bats-core/bats-core) (for
-testing), and everything required to build
-[pkgcraft](https://github.com/pkgcraft/pkgcraft) if the related feature is
-enabled
+Requirements: >=bash-5 and [bats](https://github.com/bats-core/bats-core) (for
+testing)
 
 Use the following commands to set up a dev environment:
 
