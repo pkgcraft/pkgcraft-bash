@@ -21,6 +21,6 @@ pkgcraft = ["dep:pkgcraft", "dep:itertools"]
 
 [dependencies]
 ctor = "0.1.22"
-scallop = { path = "../scallop", version = "0.0.3", features = ["plugin"] }
-pkgcraft = { path = "../pkgcraft", version = "0.0.4", default-features = false, optional = true }
+scallop = { git = "https://github.com/pkgcraft/scallop", version = "0.0.3", features = ["plugin"] }
+pkgcraft = { git = "https://github.com/pkgcraft/pkgcraft", version = "0.0.4", default-features = false, optional = true }
 itertools = { version = "0.10.3", optional = true }

@@ -15,29 +15,10 @@ jobs:
         rust-version: ['1.65.0', 'stable']
 
     steps:
-    - name: Checkout scallop
-      uses: actions/checkout@v3
-      with:
-        repository: pkgcraft/scallop
-        path: scallop
-        submodules: true
-
-    - name: Checkout pkgcraft
-      uses: actions/checkout@v3
-      with:
-        repository: pkgcraft/pkgcraft
-        path: pkgcraft
-        submodules: true
-
     - name: Checkout pkgcraft-bash
       uses: actions/checkout@v3
       with:
-        path: pkgcraft-bash
         submodules: true
-
-    - name: Get bash submodule status
-      working-directory: scallop/bash
-      run: echo "SCALLOP_BASH=$(git describe --always --dirty)" >> $GITHUB_ENV
 
     - name: Set up rust toolchain
       uses: dtolnay/rust-toolchain@master
@@ -55,7 +36,7 @@ jobs:
           ~/.cargo/registry/cache
           ~/.cargo/git/db
           target
-        key: ${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}-cargo-${{ hashFiles('pkgcraft-bash/Cargo.lock') }}
+        key: ${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}-cargo-${{ hashFiles('Cargo.lock') }}
         restore-keys: ${{ github.job }}-${{ runner.os }}-rust-
 
     - name: Various macos set up
@@ -70,9 +51,9 @@ jobs:
     - name: Build builtins
       run: |
         # first build with default features enabled
-        cargo build --manifest-path=pkgcraft-bash/Cargo.toml --target-dir target
+        cargo build
         # then with all features enabled
-        cargo build --all-features --manifest-path=pkgcraft-bash/Cargo.toml --target-dir target
+        cargo build --all-features
         # export variables required to run tests
         echo "CARGO_BUILD_DIR=${PWD}/target/debug" >> $GITHUB_ENV
 
@@ -85,35 +66,15 @@ jobs:
         bats-version: 1.7.0
 
     - name: Run tests
-      working-directory: pkgcraft-bash
       run: bats -r tests
 
   lint:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout scallop
-      uses: actions/checkout@v3
-      with:
-        repository: pkgcraft/scallop
-        path: scallop
-        submodules: true
-
-    - name: Checkout pkgcraft
-      uses: actions/checkout@v3
-      with:
-        repository: pkgcraft/pkgcraft
-        path: pkgcraft
-        submodules: true
-
     - name: Checkout pkgcraft-bash
       uses: actions/checkout@v3
       with:
-        path: pkgcraft-bash
         submodules: true
-
-    - name: Get bash submodule status
-      working-directory: scallop/bash
-      run: echo "SCALLOP_BASH=$(git describe --always --dirty)" >> $GITHUB_ENV
 
     - name: Set up rust toolchain
       uses: dtolnay/rust-toolchain@stable
@@ -131,14 +92,13 @@ jobs:
           ~/.cargo/registry/cache
           ~/.cargo/git/db
           target
-        key: ${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}-cargo-${{ hashFiles('pkgcraft-bash/Cargo.lock') }}
+        key: ${{ github.job }}-${{ runner.os }}-rust-${{ steps.rust.outputs.cachekey }}-cargo-${{ hashFiles('Cargo.lock') }}
         restore-keys: ${{ github.job }}-${{ runner.os }}-rust-
 
     - name: Run rustfmt
-      run: cargo fmt --check --manifest-path=pkgcraft-bash/Cargo.toml
+      run: cargo fmt --check
 
     - name: Run clippy
       uses: actions-rs/clippy-check@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        args: --manifest-path=pkgcraft-bash/Cargo.toml --target-dir target

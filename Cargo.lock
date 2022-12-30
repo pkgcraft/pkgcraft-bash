@@ -685,9 +685,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.16.0"
+version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
+checksum = "6f61fba1741ea2b3d6a1e3178721804bb716a68a6aeba1149b5d52e3d464ea66"
 
 [[package]]
 name = "ordered-multimap"
@@ -753,6 +753,7 @@ checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 [[package]]
 name = "pkgcraft"
 version = "0.0.4"
+source = "git+https://github.com/pkgcraft/pkgcraft#b46860e9ab4fa7d9dcddad915803ab2b2a397bbd"
 dependencies = [
  "async-trait",
  "cached",
@@ -930,6 +931,7 @@ dependencies = [
 [[package]]
 name = "scallop"
 version = "0.0.3"
+source = "git+https://github.com/pkgcraft/scallop#cbacc456c5cd036c11429e08fc7cb850560f5635"
 dependencies = [
  "autotools",
  "bindgen",
