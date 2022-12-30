@@ -24,13 +24,12 @@ enabled
 Use the following commands to set up a dev environment:
 
 ```bash
-# clone the pkgcraft workspace and pull the latest project updates
-git clone --recurse-submodules https://github.com/pkgcraft/pkgcraft-workspace.git
-cd pkgcraft-workspace
-git submodule update --recursive --remote
+# clone the git repo
+git clone https://github.com/pkgcraft/pkgcraft-bash.git
+cd pkgcraft-bash
 
 # build pkgcraft-bash with pkgcraft support enabled
-cargo build --features pkgcraft -p pkgcraft-bash
+cargo build --features pkgcraft
 
 # run tests via bats
 bats -r pkgcraft-bash/tests
