@@ -22,13 +22,13 @@ testing)
 Use the following commands to set up a dev environment:
 
 ```bash
-# clone the git repo
+# clone repo
 git clone https://github.com/pkgcraft/pkgcraft-bash.git
 cd pkgcraft-bash
 
-# build pkgcraft-bash with pkgcraft support enabled
+# build with pkgcraft support enabled
 cargo build --features pkgcraft
 
 # run tests via bats
-bats -r pkgcraft-bash/tests
+bats -r tests
 ```
